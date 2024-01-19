@@ -3,14 +3,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        List<int> towers = new List<int>();
-
-        towers.Add(3);
-        towers.Add(2);
-        towers.Add(3);
-        towers.Add(3);
- 
-
+        List<int> towers = new List<int> { 5, 2, 10, 1 };
 
         foreach (var item in towers)
         {
@@ -22,19 +15,16 @@ internal class Program
         {
             Console.Write(item + " ");
         }
-        
-
     }
+
     public static List<int> countVisibleTowers(List<int> towers)
     {
-
-
-        List<int> array = new List<int>();
+        List<int> ListOfLeftTower = new List<int>();
         int countOfVisivibleRightTowers = 0;
         int countOfVisivibleLeftTowers = 0;
         for (int i = 0; i < towers.Count; i++)
         {
-            for (int j = i  + 1  ; j < towers.Count; j++)
+            for (int j = i + 1; j < towers.Count; j++)
             {
                 if (towers[i] >= towers[j])
                 {
@@ -45,14 +35,12 @@ internal class Program
                     countOfVisivibleRightTowers++;
                     break;
                 }
-
             }
-            array.Add(countOfVisivibleRightTowers);
+            ListOfLeftTower.Add(countOfVisivibleRightTowers);
             countOfVisivibleRightTowers = 0;
-
         }
         towers.Reverse();
-        List<int> array2 = new List<int>();
+        List<int> ListOfRightTower = new List<int>();
         for (int i = 0; i < towers.Count; i++)
         {
             for (int j = i + 1; j < towers.Count; j++)
@@ -66,54 +54,16 @@ internal class Program
                     countOfVisivibleLeftTowers++;
                     break;
                 }
-
             }
-            array2.Add(countOfVisivibleLeftTowers);
+            ListOfRightTower.Add(countOfVisivibleLeftTowers);
             countOfVisivibleLeftTowers = 0;
-
         }
-        List<int> finalArray = new List<int>();
-        for (int i = 0; i < array.Count; i++)
+        List<int> ListOfVisibleTowers = new List<int>();
+        for (int i = 0; i < towers.Count; i++)
         {
-            int finalCount = array[i] + array2[array2.Count-i-1];
-            finalArray.Add(finalCount);
-
+            int finalCount = ListOfLeftTower[i] + ListOfRightTower[ListOfRightTower.Count - i - 1];
+            ListOfVisibleTowers.Add(finalCount);
         }
-        
-        return finalArray;
+        return ListOfVisibleTowers;
     }
-
-}
-
-#region MyRegion
-//towers.Reverse();
-//List<int> array2 = new List<int>();
-//for (int i = 0; i < towers.Count; i++)
-//{
-//    for (int j = i + 1; j < towers.Count; j++)
-//    {
-//        if (towers[i] >= towers[j])
-//        {
-//            countOfVisivibleLeftTowers++;
-//        }
-//        else
-//        {
-//            countOfVisivibleLeftTowers++;
-//            break;
-//        }
-
-//    }
-//    array2.Add(countOfVisivibleLeftTowers);
-//    countOfVisivibleRightTowers = 0;
-
-//}
-//int finalCount;
-//List<int> finalArray = new List<int>();
-//for (int i = 0; i < array.Count; i++)
-//{
-//    finalCount = array[i] + array2[i];
-//    finalArray.Add(finalCount);
-//}
-#endregion
-
-
+}
